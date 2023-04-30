@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './pages/App';
+import '@/styles/globals.scss';
+import { AxiosClient } from './utils/axios';
+import { SWRConfig } from 'swr';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+/**
+ * SWR 설정을 위한 객체입니다.
+ */
+const swrOptions = {
+  fetcher: (url: string) => AxiosClient.get(url).then((res) => res.data),
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <SWRConfig value={swrOptions}>
+      <App />
+    </SWRConfig>
+  </React.StrictMode>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
