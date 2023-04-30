@@ -28,7 +28,10 @@ export default function Editor() {
           </ul>
         }
       />
-      <iframe src="http://localhost:3001/" ref={iframeRef} />
+      <iframe
+        src="http://interactive-novel-editor.s3-website.kr.object.ncloudstorage.com/"
+        ref={iframeRef}
+      />
       <Modal title="에디터 도움말" showing={modalState} onClose={closeModal}>
         <p>에디터의 다양한 기능을 활용하여 인터렉티브 노벨을 쉽고 빠르게 제작해보세요.</p>
       </Modal>
