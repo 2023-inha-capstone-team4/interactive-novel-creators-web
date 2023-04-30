@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
  * API 요청을 위한 Axios 클라이언트 인스턴스입니다.
  */
 const AxiosClient = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: process.env.REACT_APP_API_BASEURL,
   timeout: 10000,
 });
 
