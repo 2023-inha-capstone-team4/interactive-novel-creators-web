@@ -1,12 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
-
-/**
- * API 요청을 위한 Axios 클라이언트 인스턴스입니다.
- */
-const AxiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASEURL,
-  timeout: 10000,
-});
+import { AxiosResponse } from 'axios';
 
 /**
  * Axios 인터셉터를 정의하는 인터페이스입니다.
@@ -38,7 +30,4 @@ const dateDeserializingInterceptor: Interceptor = (response) => {
   return response;
 };
 
-// 인터셉터 추가
-AxiosClient.interceptors.response.use(dateDeserializingInterceptor);
-
-export { AxiosClient };
+export { dateDeserializingInterceptor };

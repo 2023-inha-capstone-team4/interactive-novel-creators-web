@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './pages/App';
 import '@/styles/globals.scss';
-import { AxiosClient } from './utils/axios';
+import { AxiosClient } from './apis/client';
 import { SWRConfig } from 'swr';
 
 /**
