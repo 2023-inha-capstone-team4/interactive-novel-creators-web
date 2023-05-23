@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { RiUser3Line } from "react-icons/ri";
-import Logo from "./Logo";
-import { css } from "@emotion/react";
-import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import Logo from './Logo';
+import { css } from '@emotion/react';
+import { ReactNode } from 'react';
+import { Button } from '@mui/material';
+import { signOut } from '@/services/auth-service';
 
 /**
  * 상단 Global navigation bar 컴포넌트입니다.
@@ -16,12 +16,7 @@ export default function GNB(props: GNBProps) {
         <Logo />
         {props.addOns && <span>{props.addOns}</span>}
       </div>
-      <Link to="#">
-        <div className="gnb-account">
-          <RiUser3Line />
-          <p>로그인</p>
-        </div>
-      </Link>
+      <Button onClick={signOut}>로그아웃</Button>
     </div>
   );
 }
