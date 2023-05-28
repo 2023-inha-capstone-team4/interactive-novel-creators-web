@@ -32,7 +32,7 @@ export default function NovelList(props: NovelListProps) {
           </div>
           <div className="novellist-item-buttons">
             <LinkButton href="/editor">에디터 열기</LinkButton>
-            <LinkButton href="#">정보 수정</LinkButton>
+            <LinkButton href={`/novels/${novel.id}/update`}>정보 수정</LinkButton>
           </div>
         </li>
       ))}
