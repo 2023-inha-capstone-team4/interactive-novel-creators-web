@@ -22,7 +22,7 @@ export default function UpdateNovel() {
   const [introduce, setIntroduce] = useState<string>('');
   const [thumbnail, setThumbnail] = useState<File | null>(null);
 
-  const imageRef = useRef<HTMLImageElement>(null);
+  const [thumbnailPreview, setThumbnailPreview] = useState<string>(emptyImage);
 
   const handleSubmit = () => {
     if (!introduce) {
@@ -60,7 +60,8 @@ export default function UpdateNovel() {
 
     setThumbnail(file);
 
-    imageRef.current!.src = URL.createObjectURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    setThumbnailPreview(objectUrl);
   };
 
   return (
@@ -80,7 +81,7 @@ export default function UpdateNovel() {
           />
           <h3>작품 대표 이미지</h3>
           <div className="preview-wrapper">
-            <img src={thumbnail ?? emptyImage} ref={imageRef} />
+            <img src={thumbnailPreview} />
           </div>
           <Button variant="contained" component="label">
             작품 대표 이미지 추가
