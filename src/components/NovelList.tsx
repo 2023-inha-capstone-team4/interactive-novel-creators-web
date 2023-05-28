@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Novel } from "@/types/Novel";
-import { dateToString } from "@/utils/date";
-import { css } from "@emotion/react";
-import { RiShareBoxLine } from "react-icons/ri";
-import LinkButton from "./LinkButton";
-import { Link } from "react-router-dom";
+import { Novel } from '@/types/Novel';
+import { dateToString } from '@/utils/date';
+import { css } from '@emotion/react';
+import { RiShareBoxLine } from 'react-icons/ri';
+import LinkButton from './LinkButton';
+import { Link } from 'react-router-dom';
 
 /**
  * 노벨 리스트 컴포넌트입니다.
@@ -15,12 +15,8 @@ export default function NovelList(props: NovelListProps) {
     <ul css={style}>
       {props.novels.map((novel) => (
         <li className="novellist-item" key={novel.id}>
-          <div style={{ position: "relative" }}>
-            <img
-              src={novel.thumbnail}
-              className="novellist-item-thumbnail"
-              alt="thumbnail"
-            />
+          <div style={{ position: 'relative' }}>
+            <img src={novel.novelImageUrl} className="novellist-item-thumbnail" alt="thumbnail" />
             <div className="novellist-item-cover">
               <Link to="#">
                 <div className="novellist-item-cover-link">
@@ -31,9 +27,8 @@ export default function NovelList(props: NovelListProps) {
             </div>
           </div>
           <div className="novellist-item-info">
-            <h3>{novel.name}</h3>
-            <p>{dateToString(novel.publishedDate)}</p>
-            <p className="novellist-item-description">{novel.description}</p>
+            <h3>{novel.novelName}</h3>
+            <p className="novellist-item-description">{novel.novelIntroduce}</p>
           </div>
           <div className="novellist-item-buttons">
             <LinkButton href="/editor">에디터 열기</LinkButton>
