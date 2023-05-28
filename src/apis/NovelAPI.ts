@@ -9,9 +9,9 @@ const NovelAPI = {
     const formData = new FormData();
     formData.append('novelName', name);
     formData.append('novelIntroduce', introduce);
-    formData.append('file', thumbnail);
+    if (thumbnail) formData.append('file', thumbnail);
 
-    AxiosClient.post<Novel>('/novel/reader', formData, {
+    return AxiosClient.post<Novel>('/novel/reader', formData, {
       headers: {
         Authorization: `Bearer ${findAccessToken()}`,
         'Content-Type': 'multipart/form-data',
@@ -27,7 +27,7 @@ const NovelAPI = {
     formData.append('novelIntroduce', introduce);
     formData.append('file', thumbnail);
 
-    AxiosClient.patch<Novel>(`/novel/reader/${id}/modify`, formData, {
+    return AxiosClient.patch<Novel>(`/novel/reader/${id}/modify`, formData, {
       headers: {
         Authorization: `Bearer ${findAccessToken()}`,
         'Content-Type': 'multipart/form-data',

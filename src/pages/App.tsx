@@ -7,6 +7,8 @@ import AuthRequired from './AuthRequired';
 import { Snackbar, ThemeProvider, createTheme, Alert } from '@mui/material';
 import { useState } from 'react';
 import { AlertAPI, AlertAPIContext } from '@/utils/alert';
+import CreateNovel from './createNovel';
+import UpdateNovel from './updateNovel';
 
 export default function App() {
   const [alert, setAlert] = useState(false);
@@ -33,6 +35,8 @@ export default function App() {
                 <Route path="/novels" element={<Novels />} />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route path="/editor" element={<Editor />} />
+                <Route path="/novels/create" element={<CreateNovel />} />
+                <Route path="/novels/update" element={<UpdateNovel />} />
               </Routes>
             </AuthRequired>
           </BrowserRouter>

@@ -13,7 +13,7 @@ export default function Navigation() {
 
   return (
     <div css={style}>
-      <LinkButton href="/editor" icon={<RiLandscapeLine />}>
+      <LinkButton href="/novels/create" icon={<RiLandscapeLine />}>
         새 작품 만들기
       </LinkButton>
       <ul className="navigation-list">
