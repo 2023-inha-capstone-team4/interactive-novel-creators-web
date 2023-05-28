@@ -56,7 +56,7 @@ export default function Signin() {
             로그인
           </Button>
         </Stack>
-        <SocialLoginButtons />
+        {/* <SocialLoginButtons /> */}
       </main>
     </div>
   );
