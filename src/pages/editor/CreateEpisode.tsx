@@ -20,7 +20,11 @@ export default function CreateEpisode() {
   };
 
   useEffect(() => {
-    window.addEventListener('message', handleEditorMessageEvent);
+    window.onmessage = handleEditorMessageEvent(iframeRef.current!, {
+      hello(payload: string) {
+        console.log('hello event', payload);
+      },
+    });
   }, []);
 
   return (
