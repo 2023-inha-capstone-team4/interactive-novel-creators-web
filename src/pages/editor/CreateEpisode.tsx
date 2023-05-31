@@ -2,13 +2,14 @@
 
 import GNB from '@/components/GNB';
 import Modal from '@/components/Modal';
+import { handleEditorMessageEvent } from '@/services/editor-event-service';
 import { css } from '@emotion/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
- * 에디터 페이지입니다.
+ * 새 에피소드를 작성하는 에디터 페이지입니다.
  */
-export default function Editor() {
+export default function CreateEpisode() {
   const [modalState, setModalState] = useState(false);
   const showModal = () => setModalState(true);
   const closeModal = () => setModalState(false);
@@ -17,6 +18,10 @@ export default function Editor() {
   const enterFullScreenMode = () => {
     iframeRef.current?.requestFullscreen();
   };
+
+  useEffect(() => {
+    window.addEventListener('message', handleEditorMessageEvent);
+  }, []);
 
   return (
     <div css={style}>

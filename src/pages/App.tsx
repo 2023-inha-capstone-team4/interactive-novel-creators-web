@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Novels from './novels';
 import Statistics from './statistics';
-import Editor from './editor';
+import CreateEpisode from './editor/CreateEpisode';
 import Signin from './signin';
 import AuthRequired from './AuthRequired';
 import { Snackbar, ThemeProvider, createTheme, Alert } from '@mui/material';
@@ -34,7 +34,7 @@ export default function App() {
                 <Route path="/" element={<Novels />} />
                 <Route path="/novels" element={<Novels />} />
                 <Route path="/statistics" element={<Statistics />} />
-                <Route path="/editor" element={<Editor />} />
+                <Route path="/editor" element={<CreateEpisode />} />
                 <Route path="/novels/create" element={<CreateNovel />} />
                 <Route path="/novels/:id/update" element={<UpdateNovel />} />
               </Routes>
