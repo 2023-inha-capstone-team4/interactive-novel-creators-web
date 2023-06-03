@@ -38,13 +38,23 @@ export function removeTokens() {
 /**
  * 주어진 인증 정보로 로그인합니다.
  */
-export function signIn(email: string, password: string): Promise<AuthToken> {
+export function signIn(email: string, password: string): Promise<string> {
   return new Promise((resolve, reject) => {
     AuthAPI.signIn({ email, password })
       .then((resp) => {
-        const authToken = resp.data;
-        saveTokens(authToken.accessToken, authToken.refreshToken);
-        resolve(authToken);
+        const authorization = resp.headers['authorization'];
+        const xRefreshToken = resp.headers['x-refresh-token'];
+
+        if (!authorization || !xRefreshToken) {
+          reject();
+          return;
+        }
+
+        const accessToken = removeBearerPrefix(authorization);
+        const refreshToken = removeBearerPrefix(xRefreshToken);
+
+        saveTokens(accessToken, refreshToken);
+        resolve(accessToken);
       })
       .catch(reject);
   });
