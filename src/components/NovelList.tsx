@@ -41,7 +41,7 @@ export default function NovelList(props: NovelListProps) {
 }
 
 interface NovelListProps {
-  novels: [Novel];
+  novels: Novel[];
 }
 
 const style = css`

@@ -34,6 +34,17 @@ const NovelAPI = {
       },
     });
   },
+
+  /**
+   * 본인 작품 리스트를 조회하는 API입니다.
+   */
+  myNovels: (start: number, end: number) => {
+    return AxiosClient.get<Novel[]>(`/novel/reader/list?startIdx=${start}&endIdx=${end}`, {
+      headers: {
+        Authorization: `Bearer ${findAccessToken()}`,
+      },
+    });
+  },
 };
 
 export default NovelAPI;

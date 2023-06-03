@@ -1,26 +1,48 @@
+import NovelAPI from '@/apis/NovelAPI';
 import Layout from '@/components/Layout';
 import NovelList from '@/components/NovelList';
+import { Novel } from '@/types/Novel';
+import { AlertAPIContext } from '@/utils/alert';
+import { Button, CircularProgress } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 /**
  * 내 작품 페이지입니다.
  */
 export default function Novels() {
-  // const { data: novels, error } = useSWR('/api-dummy/novels');
-  // console.log(novels);
+  const showAlert = useContext(AlertAPIContext);
 
-  // if (error) {
-  //   return <p>에러가 발생했습니다.</p>;
-  // }
+  const [novels, setNovels] = useState<Novel[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const PAGE_SIZE = 15;
 
-  // if (!novels) {
-  //   return <></>;
-  // }
+  /** 노벨을 `PAGE_SIZE`만큼 추가로 로드합니다. */
+  const loadMore = () => {
+    setIsLoading(true);
+
+    const start = novels.length;
+    const end = start + PAGE_SIZE - 1;
+
+    NovelAPI.myNovels(start, end)
+      .then(({ data }) => {
+        setNovels([...novels, ...data]);
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        showAlert(e.response.data.errorMessage);
+        setIsLoading(false);
+      });
+  };
+
+  // 최초 로딩
+  useEffect(() => loadMore(), []);
 
   return (
     <Layout>
       <h2 style={{ marginTop: 0, marginBottom: 30 }}>내 작품</h2>
-      {/* <NovelList novels={novels} /> */}
+      <NovelList novels={novels} />
+      {isLoading ? <CircularProgress /> : <Button onClick={loadMore}>더 보기</Button>}
     </Layout>
   );
 }
