@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
 import { Novel } from '@/types/Novel';
-import { dateToString } from '@/utils/date';
 import { css } from '@emotion/react';
 import { RiShareBoxLine } from 'react-icons/ri';
-import LinkButton from './LinkButton';
-import { Link } from 'react-router-dom';
-import { Category } from '@/types/enums/Category';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 /**
  * 노벨 리스트 컴포넌트입니다.
  */
 export default function NovelList(props: NovelListProps) {
+  const navigate = useNavigate();
+
   return (
     <ul css={style}>
       {props.novels.map((novel) => (
@@ -32,10 +32,13 @@ export default function NovelList(props: NovelListProps) {
             <p className="novellist-item-description">{novel.novelIntroduce}</p>
           </div>
           <div className="novellist-item-buttons">
-            <LinkButton href="/editor">에디터 열기</LinkButton>
-            <LinkButton href={`/novels/${novel.id}/update`} state={novel}>
+            <Button variant="contained">에피소드</Button>
+            <Button
+              variant="contained"
+              onClick={() => navigate(`/novels/${novel.id}/update`, { state: novel })}
+            >
               정보 수정
-            </LinkButton>
+            </Button>
           </div>
         </li>
       ))}

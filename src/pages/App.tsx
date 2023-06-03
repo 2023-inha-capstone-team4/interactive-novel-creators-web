@@ -56,7 +56,4 @@ const muiTheme = createTheme({
       contrastText: '#ffffff',
     },
   },
-  shape: {
-    borderRadius: 8,
-  },
 });

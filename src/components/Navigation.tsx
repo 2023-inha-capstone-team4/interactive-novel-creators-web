@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import { RiHome5Line, RiFileListLine, RiBarChart2Line, RiLandscapeLine } from 'react-icons/ri';
-import LinkButton from './LinkButton';
+import { RiFileListLine, RiBarChart2Line, RiLandscapeLine } from 'react-icons/ri';
 import { Link, useLocation } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 /**
  * 사이드 Navigation bar 컴포넌트입니다.
@@ -13,9 +13,9 @@ export default function Navigation() {
 
   return (
     <div css={style}>
-      <LinkButton href="/novels/create" icon={<RiLandscapeLine />}>
+      <Button variant="contained" startIcon={<RiLandscapeLine />}>
         새 작품 만들기
-      </LinkButton>
+      </Button>
       <ul className="navigation-list">
         <li>
           <Link to="/novels">
