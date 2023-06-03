@@ -1,3 +1,5 @@
+import { Category } from './enums/Category';
+
 export interface Novel {
   id: number;
   novelName: string;
@@ -7,4 +9,5 @@ export interface Novel {
   novelImageUrl: string;
   publisherType: string;
   totalScore: number;
+  categoryTypeList: Category[];
 }

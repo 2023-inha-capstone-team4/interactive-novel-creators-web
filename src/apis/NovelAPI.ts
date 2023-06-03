@@ -19,7 +19,7 @@ const NovelAPI = {
     );
 
     // 썸네일 추가
-    if (thumbnail) formData.append('file', thumbnail);
+    formData.append('file', thumbnail);
 
     return AxiosClient.post<Novel>('/novel/reader', formData, {
       headers: {
@@ -32,10 +32,20 @@ const NovelAPI = {
   /**
    * 소설 정보 수정 API입니다.
    */
-  updateNovel: (id: number, introduce: string, thumbnail: File) => {
+  updateNovel: (id: number, introduce: string, categories: string[], thumbnail: File | null) => {
     const formData = new FormData();
+
+    // 소개 추가
     formData.append('novelIntroduce', introduce);
-    formData.append('file', thumbnail);
+
+    // 카테고리 추가
+    formData.append(
+      'categories',
+      new Blob([JSON.stringify(categories)], { type: 'application/json' }),
+    );
+
+    // 썸네일 추가
+    if (thumbnail) formData.append('file', thumbnail);
 
     return AxiosClient.patch<Novel>(`/novel/reader/${id}/modify`, formData, {
       headers: {

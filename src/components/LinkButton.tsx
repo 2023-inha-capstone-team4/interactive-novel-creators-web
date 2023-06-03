@@ -1,22 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
-import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { css } from '@emotion/react';
+import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LinkButton(props: LinkButtonProps) {
   return (
-    <Link to={props.href} css={style}>
+    <Link to={props.href} css={style} state={props.state}>
       {props.icon && <span className="linkbutton-icon">{props.icon}</span>}
-      {props.children && (
-        <span className="linkbutton-text">{props.children}</span>
-      )}
+      {props.children && <span className="linkbutton-text">{props.children}</span>}
     </Link>
   );
 }
 
 interface LinkButtonProps {
   href: string;
+  state?: any;
   icon?: ReactNode;
   children?: ReactNode;
 }

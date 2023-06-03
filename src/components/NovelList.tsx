@@ -6,6 +6,7 @@ import { css } from '@emotion/react';
 import { RiShareBoxLine } from 'react-icons/ri';
 import LinkButton from './LinkButton';
 import { Link } from 'react-router-dom';
+import { Category } from '@/types/enums/Category';
 
 /**
  * 노벨 리스트 컴포넌트입니다.
@@ -32,7 +33,9 @@ export default function NovelList(props: NovelListProps) {
           </div>
           <div className="novellist-item-buttons">
             <LinkButton href="/editor">에디터 열기</LinkButton>
-            <LinkButton href={`/novels/${novel.id}/update`}>정보 수정</LinkButton>
+            <LinkButton href={`/novels/${novel.id}/update`} state={novel}>
+              정보 수정
+            </LinkButton>
           </div>
         </li>
       ))}
