@@ -4,7 +4,9 @@ import { Novel } from '@/types/Novel';
 import { css } from '@emotion/react';
 import { RiShareBoxLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Dialog, DialogTitle } from '@mui/material';
+import { useState } from 'react';
+import EpisodeList from './EpisodeList';
 
 /**
  * 노벨 리스트 컴포넌트입니다.
@@ -12,37 +14,61 @@ import { Button } from '@mui/material';
 export default function NovelList(props: NovelListProps) {
   const navigate = useNavigate();
 
+  // 상태: 에피소드 다이얼로그
+  const [episodeDialogOpen, setEpisodeDialogOpen] = useState<boolean>(false);
+  const [selectedNovelId, setSelectedNovelId] = useState<number | null>(null);
+
+  /** 해당 노벨의 에피소드 다이얼로그를 표시합니다. */
+  const openDialog = (novelId: number) => {
+    setSelectedNovelId(novelId);
+    setEpisodeDialogOpen(true);
+  };
+
+  /** 열려 있는 에피소드 다이얼로그를 닫습니다. */
+  const closeDialog = () => {
+    setEpisodeDialogOpen(false);
+    setSelectedNovelId(null);
+  };
+
   return (
-    <ul css={style}>
-      {props.novels.map((novel) => (
-        <li className="novellist-item" key={novel.id}>
-          <div style={{ position: 'relative' }}>
-            <img src={novel.novelImageUrl} className="novellist-item-thumbnail" alt="thumbnail" />
-            <div className="novellist-item-cover">
-              <Link to={`${process.env.REACT_APP_READER_SERVICE_URL}novel/${novel.id}`}>
-                <div className="novellist-item-cover-link">
-                  <RiShareBoxLine />
-                  <p>독자 서비스에서 보기</p>
-                </div>
-              </Link>
+    <>
+      <ul css={style}>
+        {props.novels.map((novel) => (
+          <li className="novellist-item" key={novel.id}>
+            <div style={{ position: 'relative' }}>
+              <img src={novel.novelImageUrl} className="novellist-item-thumbnail" alt="thumbnail" />
+              <div className="novellist-item-cover">
+                <Link to={`${process.env.REACT_APP_READER_SERVICE_URL}novel/${novel.id}`}>
+                  <div className="novellist-item-cover-link">
+                    <RiShareBoxLine />
+                    <p>독자 서비스에서 보기</p>
+                  </div>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="novellist-item-info">
-            <h3>{novel.novelName}</h3>
-            <p className="novellist-item-description">{novel.novelIntroduce}</p>
-          </div>
-          <div className="novellist-item-buttons">
-            <Button variant="contained">에피소드</Button>
-            <Button
-              variant="contained"
-              onClick={() => navigate(`/novels/${novel.id}/update`, { state: novel })}
-            >
-              정보 수정
-            </Button>
-          </div>
-        </li>
-      ))}
-    </ul>
+            <div className="novellist-item-info">
+              <h3>{novel.novelName}</h3>
+              <p className="novellist-item-description">{novel.novelIntroduce}</p>
+            </div>
+            <div className="novellist-item-buttons">
+              <Button variant="contained" onClick={() => openDialog(novel.id)}>
+                에피소드
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => navigate(`/novels/${novel.id}/update`, { state: novel })}
+              >
+                정보 수정
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <Dialog open={episodeDialogOpen} onClose={closeDialog} fullWidth>
+        <DialogTitle>에피소드</DialogTitle>
+        {selectedNovelId && <EpisodeList novelId={selectedNovelId} />}
+      </Dialog>
+    </>
   );
 }
 

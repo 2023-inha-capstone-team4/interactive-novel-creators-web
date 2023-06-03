@@ -11,3 +11,14 @@ export interface Novel {
   totalScore: number;
   categoryTypeList: Category[];
 }
+
+export interface Episode {
+  id: number;
+  novelDetailName: string;
+  novelDetailImageUrl: string;
+  authorId: number;
+  authorName: string;
+  novelId: number;
+  novelName: string;
+  publisherType: string;
+}

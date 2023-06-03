@@ -1,6 +1,6 @@
 import { findAccessToken } from '@/services/auth-service';
 import { AxiosClient } from './client';
-import { Novel } from '@/types/Novel';
+import { Episode, Novel } from '@/types/Novel';
 const NovelAPI = {
   /**
    * 소설 생성 API입니다.
@@ -64,6 +64,12 @@ const NovelAPI = {
         Authorization: `Bearer ${findAccessToken()}`,
       },
     });
+  },
+
+  episodes: (novelId: number, start: number, end: number, order: string = 'desc') => {
+    return AxiosClient.get<Episode[]>(
+      `/novel/list/detail/${novelId}?startIdx=${start}&endIdx=${end}&order=${order}`,
+    );
   },
 };
 
