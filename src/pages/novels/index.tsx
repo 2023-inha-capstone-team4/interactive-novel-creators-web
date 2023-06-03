@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import NovelList from '@/components/NovelList';
 import { Novel } from '@/types/Novel';
 import { AlertAPIContext } from '@/utils/alert';
-import { Button, CircularProgress } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 
@@ -42,7 +42,9 @@ export default function Novels() {
     <Layout>
       <h2 style={{ marginTop: 0, marginBottom: 30 }}>내 작품</h2>
       <NovelList novels={novels} />
-      {isLoading ? <CircularProgress /> : <Button onClick={loadMore}>더 보기</Button>}
+      <Box textAlign="center" marginY={5}>
+        {isLoading ? <CircularProgress /> : <Button onClick={loadMore}>더 보기</Button>}
+      </Box>
     </Layout>
   );
 }
