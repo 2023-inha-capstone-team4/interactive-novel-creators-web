@@ -17,7 +17,7 @@ import {
   TextField,
 } from '@mui/material';
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const emptyImage = require('@/assets/img/empty.png');
 
@@ -26,6 +26,7 @@ const emptyImage = require('@/assets/img/empty.png');
  */
 export default function CreateEpisode() {
   const showAlert = useContext(AlertAPIContext);
+  const navigate = useNavigate();
 
   const { id: idParam } = useParams();
   const novelId = parseInt(idParam!);
@@ -73,7 +74,9 @@ export default function CreateEpisode() {
     }
 
     // 에피소드 업로드
-    NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], []);
+    NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], []).then(() => {
+      navigate('/novels');
+    });
   };
 
   /** 썸네일 이미지 입력란 변경에 대한 이벤트 핸들러 함수입니다. */
