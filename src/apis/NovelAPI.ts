@@ -110,6 +110,40 @@ const NovelAPI = {
   },
 
   /**
+   * 작품 에피소드를 수정하는 API입니다.
+   */
+  updateEpisode: (
+    novelId: number,
+    episodeId: number,
+    name: string,
+    introduce: string,
+    thumbnail: File | null,
+    jsonData: string,
+    imageAssetUrls: string[],
+    soundAssetUrls: string[],
+  ) => {
+    const formData = new FormData();
+
+    formData.append('novelDetailName', name);
+    formData.append('novelDetailIntroduce', introduce);
+    formData.append('novelDataFile', jsonData);
+    if (thumbnail) formData.append('file', thumbnail);
+
+    const mediaDto = {
+      imageList: imageAssetUrls,
+      soundList: soundAssetUrls,
+    };
+    formData.append('mediaDto', new Blob([JSON.stringify(mediaDto)], { type: 'application/json' }));
+
+    return AxiosClient.post(`/novel/reader/${novelId}/${episodeId}/modify`, formData, {
+      headers: {
+        Authorization: `Bearer ${findAccessToken()}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
+  /**
    * 에피소드에서 사용하는 이미지와 사운드 파일을 업로드하는 API입니다.
    * 업로드 완료된 URL들을 업로드한 파일 순서 그대로 반환합니다.
    *
@@ -131,6 +165,17 @@ const NovelAPI = {
 
   uploadAsset: (novelId: number, type: string, file: File) => {
     return NovelAPI.uploadAssets(novelId, type, [file]);
+  },
+
+  /**
+   * 회차 데이터를 조회하는 API입니다.
+   */
+  episode: (episodeId: number) => {
+    return AxiosClient.get<Episode>(`/novel/view/${episodeId}`, {
+      headers: {
+        Authorization: `Bearer ${findAccessToken()}`,
+      },
+    });
   },
 };
 

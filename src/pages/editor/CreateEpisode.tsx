@@ -17,7 +17,7 @@ import {
   TextField,
 } from '@mui/material';
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const emptyImage = require('@/assets/img/empty.png');
 
@@ -28,8 +28,14 @@ export default function CreateEpisode() {
   const showAlert = useContext(AlertAPIContext);
   const navigate = useNavigate();
 
+  // 노벨 ID
   const { id: idParam } = useParams();
   const novelId = parseInt(idParam!);
+
+  // 회차 ID
+  const [searchParams] = useSearchParams();
+  const episodeParam = searchParams.get('episode');
+  const episodeId = episodeParam ? parseInt(episodeParam) : null;
 
   const [modalState, setModalState] = useState(false);
   const showModal = () => setModalState(true);
@@ -73,10 +79,29 @@ export default function CreateEpisode() {
       return;
     }
 
-    // 에피소드 업로드
-    NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], []).then(() => {
-      navigate('/novels');
-    });
+    // 업로드
+    if (episodeId) {
+      // 수정
+      NovelAPI.updateEpisode(
+        novelId,
+        episodeId,
+        name,
+        introduce,
+        thumbnail,
+        novelJsonData,
+        [],
+        [],
+      ).then(() => {
+        navigate('/novels');
+      });
+    } else {
+      // 등록
+      NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], []).then(
+        () => {
+          navigate('/novels');
+        },
+      );
+    }
   };
 
   /** 썸네일 이미지 입력란 변경에 대한 이벤트 핸들러 함수입니다. */
@@ -99,6 +124,18 @@ export default function CreateEpisode() {
     const objectUrl = URL.createObjectURL(file);
     setThumbnailPreview(objectUrl);
   };
+
+  // 회차를 수정하는 경우, 회차 데이터를 불러옵니다.
+  useEffect(() => {
+    if (!episodeId) return;
+
+    // 회차 정보 요청
+    NovelAPI.episode(episodeId).then(({ data }) => {
+      setName(data.novelDetailName);
+      setIntroduce(data.novelDetailIntroduce);
+      setNovelJsonData(data.novelData);
+    });
+  }, [episodeId]);
 
   return (
     <div css={style}>

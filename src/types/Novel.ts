@@ -15,7 +15,9 @@ export interface Novel {
 export interface Episode {
   id: number;
   novelDetailName: string;
+  novelDetailIntroduce: string;
   novelDetailImageUrl: string;
+  novelData: string;
   authorId: number;
   authorName: string;
   novelId: number;
