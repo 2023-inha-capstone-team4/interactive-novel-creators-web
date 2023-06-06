@@ -148,7 +148,7 @@ export default function CreateEpisode() {
         }
       />
       {/* <iframe src={process.env.REACT_APP_EDITOR_URL} ref={iframeRef} /> */}
-      <App novelId={novelId} handleSave={handleSave} />
+      <App novelId={novelId} handleSave={handleSave} jsonData={novelJsonData} />
       <Modal title="에디터 도움말" showing={modalState} onClose={closeModal}>
         <p>에디터의 다양한 기능을 활용하여 인터렉티브 노벨을 쉽고 빠르게 제작해보세요.</p>
       </Modal>
