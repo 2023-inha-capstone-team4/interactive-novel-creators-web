@@ -91,9 +91,11 @@ const NovelAPI = {
 
     formData.append('novelDetailName', name);
     formData.append('novelDetailIntroduce', introduce);
-    formData.append('novelDataFile', jsonData);
-
     formData.append('file', thumbnail);
+
+    const blob = new Blob([jsonData], { type: 'text/plain' });
+    const novelDataFile = new File([blob], 'jsonData.txt', { type: 'text/plain' });
+    formData.append('novelDataFile', novelDataFile);
 
     const mediaDto = {
       imageList: imageAssetUrls,
@@ -126,8 +128,11 @@ const NovelAPI = {
 
     formData.append('novelDetailName', name);
     formData.append('novelDetailIntroduce', introduce);
-    formData.append('novelDataFile', jsonData);
     if (thumbnail) formData.append('file', thumbnail);
+
+    const blob = new Blob([jsonData], { type: 'text/plain' });
+    const novelDataFile = new File([blob], 'jsonData.txt', { type: 'text/plain' });
+    formData.append('novelDataFile', novelDataFile);
 
     const mediaDto = {
       imageList: imageAssetUrls,
