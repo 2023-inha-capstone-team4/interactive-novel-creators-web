@@ -66,10 +66,71 @@ const NovelAPI = {
     });
   },
 
+  /**
+   * 작품의 에피소드 목록을 조회하는 API입니다.
+   */
   episodes: (novelId: number, start: number, end: number, order: string = 'desc') => {
     return AxiosClient.get<Episode[]>(
       `/novel/list/detail/${novelId}?startIdx=${start}&endIdx=${end}&order=${order}`,
     );
+  },
+
+  /**
+   * 작품 에피소드를 업로드하는 API입니다.
+   */
+  createEpisode: (
+    novelId: number,
+    name: string,
+    introduce: string,
+    thumbnail: File,
+    jsonData: string,
+    imageAssetUrls: string[],
+    soundAssetUrls: string[],
+  ) => {
+    const formData = new FormData();
+
+    formData.append('novelDetailName', name);
+    formData.append('novelDetailIntroduce', introduce);
+    formData.append('novelDataFile', jsonData);
+
+    formData.append('file', thumbnail);
+
+    const mediaDto = {
+      imageList: imageAssetUrls,
+      soundList: soundAssetUrls,
+    };
+    formData.append('mediaDto', new Blob([JSON.stringify(mediaDto)], { type: 'application/json' }));
+
+    return AxiosClient.post(`/novel/reader/${novelId}`, formData, {
+      headers: {
+        Authorization: `Bearer ${findAccessToken()}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
+  /**
+   * 에피소드에서 사용하는 이미지와 사운드 파일을 업로드하는 API입니다.
+   * 업로드 완료된 URL들을 업로드한 파일 순서 그대로 반환합니다.
+   *
+   * @param type image | sound
+   */
+  uploadAssets: (novelId: number, type: string, files: File[]) => {
+    const formData = new FormData();
+
+    formData.append('fileType', type);
+    files.forEach((file) => formData.append('file', file));
+
+    return AxiosClient.post<string[]>(`/novel/reader/${novelId}/uploadFile`, formData, {
+      headers: {
+        Authorization: `Bearer ${findAccessToken()}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
+  uploadAsset: (novelId: number, type: string, file: File) => {
+    return NovelAPI.uploadAssets(novelId, type, [file]);
   },
 };
 

@@ -2,9 +2,9 @@
 
 import { Novel } from '@/types/Novel';
 import { css } from '@emotion/react';
-import { RiShareBoxLine } from 'react-icons/ri';
+import { RiAddCircleLine, RiShareBoxLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Dialog, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useState } from 'react';
 import EpisodeList from './EpisodeList';
 
@@ -66,7 +66,15 @@ export default function NovelList(props: NovelListProps) {
       </ul>
       <Dialog open={episodeDialogOpen} onClose={closeDialog} fullWidth>
         <DialogTitle>에피소드</DialogTitle>
-        {selectedNovelId && <EpisodeList novelId={selectedNovelId} />}
+        <DialogContent>
+          <Button
+            startIcon={<RiAddCircleLine />}
+            onClick={() => navigate(`/novels/${selectedNovelId}/editor`)}
+          >
+            새 에피소드 작성
+          </Button>
+          {selectedNovelId && <EpisodeList novelId={selectedNovelId} />}
+        </DialogContent>
       </Dialog>
     </>
   );

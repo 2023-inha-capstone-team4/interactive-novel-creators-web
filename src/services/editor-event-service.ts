@@ -1,20 +1,33 @@
 /**
- * 에디터의 `message` 이벤트에 대한 리스너를 반환합니다.
- * 메시지의 타입에 따라 `handlers` 인자로 전달된 핸들러 함수를 실행합니다.
+ * 메시지 이벤트를 주고 받는 기능을 제공합니다.
+ * 메시지는 `{ type: string, payload: any }` 형식으로 주고 받을 수 있도록 합니다.
  */
-export function handleEditorMessageEvent(
-  editorElement: HTMLIFrameElement,
+
+/**
+ * 메시지 이벤트를 전송합니다.
+ */
+export function sendMessage(target: HTMLIFrameElement, message: EditorMessage) {
+  target.contentWindow!.postMessage(message, '*');
+}
+
+/**
+ * 주어진 핸들러 집합으로 메시지 이벤트를 처리하는
+ * 이벤트 리스너 함수를 반환합니다.
+ *
+ * @param handlers 메시지 타입과 핸들러 함수의 맵(object)
+ */
+export function listenMessage(
+  target: HTMLIFrameElement,
   handlers: {
     [messageType: string]: EditorMessageHandler;
   },
 ): EditorMessageEventListener {
-  function eventListener(e: MessageEvent<EditorMessage>) {
-    // 지정된 iframe에 대해서만 이벤트 처리
-    if (e.source !== editorElement.contentWindow) {
+  const listener: EditorMessageEventListener = (event: MessageEvent<EditorMessage>) => {
+    if (event.source !== target.contentWindow) {
       return;
     }
 
-    const { type, payload } = e.data;
+    const { type, payload } = event.data;
 
     const handler = handlers[type];
     if (!handler) {
@@ -22,9 +35,9 @@ export function handleEditorMessageEvent(
     }
 
     handler(payload);
-  }
+  };
 
-  return eventListener;
+  return listener;
 }
 
 /**

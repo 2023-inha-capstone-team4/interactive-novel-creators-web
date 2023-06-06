@@ -34,9 +34,9 @@ export default function App() {
                 <Route path="/" element={<Novels />} />
                 <Route path="/novels" element={<Novels />} />
                 <Route path="/statistics" element={<Statistics />} />
-                <Route path="/editor" element={<CreateEpisode />} />
                 <Route path="/novels/create" element={<CreateNovel />} />
                 <Route path="/novels/:id/update" element={<UpdateNovel />} />
+                <Route path="/novels/:id/editor" element={<CreateEpisode />} />
               </Routes>
             </AuthRequired>
           </BrowserRouter>
