@@ -11,7 +11,7 @@ import { MasterManagerContext } from './lib/MasterManagerContext';
 function App(props) {
   return (
     <>
-      <MasterManagerContext.Provider value={new MasterManager(props.novelId)}>
+      <MasterManagerContext.Provider value={new MasterManager(props.novelId, props.handleSave)}>
         <Header />
         <main>
           <div className="top_contents">

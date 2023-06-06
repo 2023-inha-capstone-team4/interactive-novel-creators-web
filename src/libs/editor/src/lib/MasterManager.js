@@ -12,8 +12,9 @@ import { SoundManager } from './SoundManager.js';
 import { MasterComponentManager } from './MasterComponentManager.js';
 
 export class MasterManager {
-  constructor(novelId) {
+  constructor(novelId, handleSave) {
     this.novelId = novelId;
+    this.handleSave = handleSave;
 
     //create timer
     this.masterTimer = new MasterTimer();
