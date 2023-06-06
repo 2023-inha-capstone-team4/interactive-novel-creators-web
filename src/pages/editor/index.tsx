@@ -24,7 +24,7 @@ const emptyImage = require('@/assets/img/empty.png');
 /**
  * 새 에피소드를 작성하는 에디터 페이지입니다.
  */
-export default function CreateEpisode() {
+export default function Editor() {
   const showAlert = useContext(AlertAPIContext);
   const navigate = useNavigate();
 
