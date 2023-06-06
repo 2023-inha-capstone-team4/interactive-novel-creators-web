@@ -4,7 +4,7 @@ import { Novel } from '@/types/Novel';
 import { css } from '@emotion/react';
 import { RiAddCircleLine, RiShareBoxLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Box, Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useState } from 'react';
 import EpisodeList from './EpisodeList';
 
@@ -73,7 +73,7 @@ export default function NovelList(props: NovelListProps) {
           >
             새 에피소드 작성
           </Button>
-          {selectedNovelId && <EpisodeList novelId={selectedNovelId} />}
+          <Box paddingY={3}>{selectedNovelId && <EpisodeList novelId={selectedNovelId} />}</Box>
         </DialogContent>
       </Dialog>
     </>
