@@ -9,7 +9,9 @@ import { listenMessage, sendMessage } from '@/services/editor-event-service';
 import { AlertAPIContext } from '@/utils/alert';
 import { css } from '@emotion/react';
 import {
+  Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -40,6 +42,9 @@ export default function Editor() {
   const [modalState, setModalState] = useState(false);
   const showModal = () => setModalState(true);
   const closeModal = () => setModalState(false);
+
+  // 에피소드 로딩 중인지
+  const [loadingEpisode, setLoadingEpisode] = useState(episodeId ? true : false);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const enterFullScreenMode = () => {
@@ -134,8 +139,19 @@ export default function Editor() {
       setName(data.novelDetailName);
       setIntroduce(data.novelDetailIntroduce);
       setNovelJsonData(data.novelData);
+
+      setLoadingEpisode(false);
     });
   }, [episodeId]);
+
+  if (loadingEpisode) {
+    return (
+      <Box padding={5} textAlign="center">
+        <CircularProgress />
+        <p>에피소드 데이터 로딩 중...</p>
+      </Box>
+    );
+  }
 
   return (
     <div css={style}>
