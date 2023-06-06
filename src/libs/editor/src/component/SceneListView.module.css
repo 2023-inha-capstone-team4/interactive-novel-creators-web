@@ -1,0 +1,71 @@
+.list_title
+{
+    font-size: 1.2rem;
+
+    min-width:150px;
+    
+    text-align: center;
+    background-color: black;
+    color:white;
+
+    position:sticky;
+}
+
+.scene_view{
+   margin:0px;
+   height:400px;
+   min-width:150px;
+   max-width:150px;
+   display:flex;
+   flex-direction: column;
+   justify-content: space-between;
+
+   background-color:darkblue;
+   color:white;
+
+}
+
+
+.scenes
+{
+  height:560px;
+  overflow-y:scroll;
+  background-color: white;
+
+
+}
+
+.scenes::-webkit-scrollbar
+{
+  background-color:white;
+  width:8px;
+  border-right:1px solid gainsboro;
+}
+
+.scenes::-webkit-scrollbar-thumb
+{
+  background-color:gainsboro;
+  border: 1px solid white;
+  width:8px;
+  border-radius: 20px;
+  scrollbar-width: thin;
+}
+
+.scenes::-webkit-scrollbar-thumb:hover
+{
+  background-color: black;
+}
+
+.modal_btn_box
+{
+  display:flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.name_text_area
+{
+  width:50%;
+}

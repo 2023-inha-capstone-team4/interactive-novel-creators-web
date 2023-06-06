@@ -3,6 +3,7 @@
 import NovelAPI from '@/apis/NovelAPI';
 import GNB from '@/components/GNB';
 import Modal from '@/components/Modal';
+import App from '@/libs/editor/src/App';
 import { findAccessToken } from '@/services/auth-service';
 import { listenMessage, sendMessage } from '@/services/editor-event-service';
 import { AlertAPIContext } from '@/utils/alert';
@@ -90,29 +91,29 @@ export default function CreateEpisode() {
     setThumbnailPreview(objectUrl);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      // 에디터 초기화 (init 메시지 전송)
-      sendMessage(iframeRef.current!, {
-        type: 'init',
-        payload: {
-          novelId,
-          accessToken: findAccessToken(),
-        },
-      });
-    }, 1000);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     // 에디터 초기화 (init 메시지 전송)
+  //     sendMessage(iframeRef.current!, {
+  //       type: 'init',
+  //       payload: {
+  //         novelId,
+  //         accessToken: findAccessToken(),
+  //       },
+  //     });
+  //   }, 1000);
 
-    // 에디터 메시지 리스너 설정
-    window.onmessage = listenMessage(iframeRef.current!, {
-      /**
-       * 업로드 요청을 처리합니다.
-       */
-      upload: (payload) => {
-        setNovelJsonData(payload);
-        setDialogOpen(true);
-      },
-    });
-  }, [iframeRef.current]);
+  //   // 에디터 메시지 리스너 설정
+  //   window.onmessage = listenMessage(iframeRef.current!, {
+  //     /**
+  //      * 업로드 요청을 처리합니다.
+  //      */
+  //     upload: (payload) => {
+  //       setNovelJsonData(payload);
+  //       setDialogOpen(true);
+  //     },
+  //   });
+  // }, [iframeRef.current]);
 
   return (
     <div css={style}>
@@ -124,7 +125,8 @@ export default function CreateEpisode() {
           </ul>
         }
       />
-      <iframe src={process.env.REACT_APP_EDITOR_URL} ref={iframeRef} />
+      {/* <iframe src={process.env.REACT_APP_EDITOR_URL} ref={iframeRef} /> */}
+      <App novelId={novelId} />
       <Modal title="에디터 도움말" showing={modalState} onClose={closeModal}>
         <p>에디터의 다양한 기능을 활용하여 인터렉티브 노벨을 쉽고 빠르게 제작해보세요.</p>
       </Modal>

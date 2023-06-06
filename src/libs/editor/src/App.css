@@ -1,0 +1,41 @@
+
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+main
+{
+	margin:0;
+	padding:0;
+	min-height: 600px;
+	display:flex;
+	flex-direction: column;
+	max-width: 1920px;
+
+}
+
+.top_contents
+{
+	display:flex;
+	flex-direction: row;
+}
+
+
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+	margin:0;
+	text-align: left;
+}
+
+@font-face {
+	font-family: 'Nanum Square';
+	font-style: normal;
+	font-weight: 600;
+	src: url('https://cdn.jsdelivr.net/npm/nanum-square-round@latest/css/nanumsquareround.css');
+  }

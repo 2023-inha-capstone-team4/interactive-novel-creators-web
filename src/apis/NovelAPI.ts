@@ -119,7 +119,7 @@ const NovelAPI = {
     const formData = new FormData();
 
     formData.append('fileType', type);
-    files.forEach((file) => formData.append('file', file));
+    files.forEach((file) => formData.append('files', file));
 
     return AxiosClient.post<string[]>(`/novel/reader/${novelId}/uploadFile`, formData, {
       headers: {

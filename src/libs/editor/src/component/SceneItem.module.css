@@ -1,0 +1,30 @@
+.scene_item_box
+{
+    padding:5px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    max-width: 100%;
+    border-bottom:1px solid gainsboro;
+    background-color: white;
+    color:black;
+}
+
+.scene_item_box:hover
+{
+    background-color:aliceblue;
+    cursor:pointer;
+}
+
+.scene_item_box_selected
+{
+    padding:5px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.scene_item_box_selected:hover
+{
+    cursor:pointer;
+}
