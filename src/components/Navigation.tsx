@@ -2,18 +2,23 @@
 
 import { css } from '@emotion/react';
 import { RiFileListLine, RiBarChart2Line, RiLandscapeLine } from 'react-icons/ri';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 /**
  * 사이드 Navigation bar 컴포넌트입니다.
  */
 export default function Navigation() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
     <div css={style}>
-      <Button variant="contained" startIcon={<RiLandscapeLine />}>
+      <Button
+        variant="contained"
+        startIcon={<RiLandscapeLine />}
+        onClick={() => navigate('/novels/create')}
+      >
         새 작품 만들기
       </Button>
       <ul className="navigation-list">
