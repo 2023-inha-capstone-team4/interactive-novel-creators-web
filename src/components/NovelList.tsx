@@ -37,14 +37,14 @@ export default function NovelList(props: NovelListProps) {
           <li className="novellist-item" key={novel.id}>
             <div style={{ position: 'relative' }}>
               <img src={novel.novelImageUrl} className="novellist-item-thumbnail" alt="thumbnail" />
-              <div className="novellist-item-cover">
+              {/* <div className="novellist-item-cover">
                 <Link to={`${process.env.REACT_APP_READER_SERVICE_URL}novel/${novel.id}`}>
                   <div className="novellist-item-cover-link">
                     <RiShareBoxLine />
                     <p>독자 서비스에서 보기</p>
                   </div>
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className="novellist-item-info">
               <h3>{novel.novelName}</h3>
