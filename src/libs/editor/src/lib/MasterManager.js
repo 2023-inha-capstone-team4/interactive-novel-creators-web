@@ -30,6 +30,7 @@ export class MasterManager {
     if (jsonData) {
       const sceneList = JsonParser.jsonToSceneList(jsonData);
       this.sceneManager.sceneList = sceneList;
+      console.log(sceneList);
     }
 
     //
