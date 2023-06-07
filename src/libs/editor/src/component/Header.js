@@ -12,14 +12,15 @@ function Header() {
   const onClickSaveProjectJson = () => {
     const jsonString = JSON.stringify(masterManager.sceneManager.sceneList, null, 2);
     masterManager.handleSave(jsonString);
-    // const blob = new Blob([jsonString], { type: 'application/json' });
-    // const url = URL.createObjectURL(blob);
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.download = 'data.json';
-    // document.body.appendChild(link);
-    // link.click();
-    // URL.revokeObjectURL(url);
+
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'data.json';
+    document.body.appendChild(link);
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   const onClickPreview = () => {
