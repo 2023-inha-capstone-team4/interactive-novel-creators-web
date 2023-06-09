@@ -9,8 +9,10 @@ const NovelAPI = {
     const formData = new FormData();
 
     // 이름과 소개 추가
-    formData.append('novelName', name);
-    formData.append('novelIntroduce', introduce);
+    // formData.append('novelName', name);
+    // formData.append('novelIntroduce', introduce);
+    formData.append('novelName', new Blob([name], { type: 'application/json;utf-8' }));
+    formData.append('novelIntroduce', new Blob([introduce], { type: 'application/json;utf-8' }));
 
     // 카테고리 추가
     formData.append(
@@ -36,7 +38,8 @@ const NovelAPI = {
     const formData = new FormData();
 
     // 소개 추가
-    formData.append('novelIntroduce', introduce);
+    // formData.append('novelIntroduce', introduce);
+    formData.append('novelIntroduce', new Blob([introduce], { type: 'application/json;utf-8' }));
 
     // 카테고리 추가
     formData.append(
@@ -89,8 +92,14 @@ const NovelAPI = {
   ) => {
     const formData = new FormData();
 
-    formData.append('novelDetailName', name);
-    formData.append('novelDetailIntroduce', introduce);
+    // formData.append('novelDetailName', name);
+    // formData.append('novelDetailIntroduce', introduce);
+    formData.append('novelDetailName', new Blob([name], { type: 'application/json;utf-8' }));
+    formData.append(
+      'novelDetailIntroduce',
+      new Blob([introduce], { type: 'application/json;utf-8' }),
+    );
+
     formData.append('file', thumbnail);
 
     const blob = new Blob([jsonData], { type: 'text/plain' });
@@ -126,8 +135,14 @@ const NovelAPI = {
   ) => {
     const formData = new FormData();
 
-    formData.append('novelDetailName', name);
-    formData.append('novelDetailIntroduce', introduce);
+    // formData.append('novelDetailName', name);
+    // formData.append('novelDetailIntroduce', introduce);
+    formData.append('novelDetailName', new Blob([name], { type: 'application/json;utf-8' }));
+    formData.append(
+      'novelDetailIntroduce',
+      new Blob([introduce], { type: 'application/json;utf-8' }),
+    );
+
     if (thumbnail) formData.append('file', thumbnail);
 
     const blob = new Blob([jsonData], { type: 'text/plain' });
