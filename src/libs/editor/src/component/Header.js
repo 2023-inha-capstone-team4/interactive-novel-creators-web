@@ -38,7 +38,7 @@ function Header() {
           <ul className={styles.options}>
             <li
               onClick={() => {
-                //onClickSaveProjectJson();
+                onClickSaveProjectJson();
               }}
             >
               저장

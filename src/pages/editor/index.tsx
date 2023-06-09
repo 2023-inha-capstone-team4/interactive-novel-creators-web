@@ -60,6 +60,7 @@ export default function Editor() {
 
   // 상태: 작품 정보 입력 다이얼로그
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   // 저장 버튼 클릭 핸들러
   const handleSave = (jsonData: string) => {
@@ -85,27 +86,32 @@ export default function Editor() {
     }
 
     // 업로드
+    setIsUploading(true);
+
     if (episodeId) {
       // 수정
-      NovelAPI.updateEpisode(
-        novelId,
-        episodeId,
-        name,
-        introduce,
-        thumbnail,
-        novelJsonData,
-        [],
-        [],
-      ).then(() => {
-        navigate('/novels');
-      });
+      NovelAPI.updateEpisode(novelId, episodeId, name, introduce, thumbnail, novelJsonData, [], [])
+        .then(() => {
+          navigate('/novels');
+          setIsUploading(false);
+        })
+        .catch((e) => {
+          const errorMessage = e.response.data.errorMessage;
+          showAlert(`에러가 발생했습니다. 다시 시도해주세요. (메시지 : ${errorMessage})`);
+          setIsUploading(false);
+        });
     } else {
       // 등록
-      NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], []).then(
-        () => {
+      NovelAPI.createEpisode(novelId, name, introduce, thumbnail, novelJsonData, [], [])
+        .then(() => {
           navigate('/novels');
-        },
-      );
+          setIsUploading(false);
+        })
+        .catch((e) => {
+          const errorMessage = e.response.data.errorMessage;
+          showAlert(`에러가 발생했습니다. 다시 시도해주세요. (메시지 : ${errorMessage})`);
+          setIsUploading(false);
+        });
     }
   };
 
@@ -197,7 +203,9 @@ export default function Editor() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDialogOpen(false)}>취소</Button>
-          <Button onClick={handleSubmitEpisode}>업로드</Button>
+          <Button onClick={handleSubmitEpisode} disabled={isUploading}>
+            {isUploading ? '업로드 중...' : '업로드'}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
