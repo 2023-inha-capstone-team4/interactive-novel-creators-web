@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { css } from '@emotion/react';
 import GNB from './GNB';
 import Navigation from './Navigation';
+import ServiceLinks from './ServiceLinks';
 
 /**
  * 기본 레이아웃 컴포넌트입니다.
@@ -11,6 +12,7 @@ import Navigation from './Navigation';
 export default function Layout({ children }: LayoutProps) {
   return (
     <div css={style}>
+      <ServiceLinks />
       <GNB />
       <div className="container">
         <div className="navigation-container">
